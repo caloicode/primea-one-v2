@@ -1,6 +1,6 @@
 # 🚀 Next.js + Supabase + Google OAuth Boilerplate
 
-A minimalist Next.js boilerplate with built-in **Supabase Google OAuth**, **ShadCN UI**, and **Dark/Light mode support** — perfect for modern SaaS apps and dashboards.
+A minimalist Next.js boilerplate with built-in **Supaase Google OAuth**, **ShadCN UI**, and **Dark/Light mode support** — perfect for modern SaaS apps and dashboards.
 
 ---
 
@@ -48,33 +48,30 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
 ```bash
 .
 ├── app/
-│   ├── page.tsx                # Public homepage (with Google Sign-In)
+│   ├── page.tsx                  # Public homepage (with Google Sign-In)
+│   ├── layout.tsx                # Base layout (optional)
+│   ├── auth/
+│   │   └── callback/
+│   │       └── route.ts          # Google OAuth callback handler
 │   └── protected/
-│       ├── page.tsx            # Protected dashboard
-│       └── layout.tsx          # Layout with navbar, theme toggle, sign-out
+│       ├── page.tsx              # Protected dashboard
+│       └── layout.tsx            # Layout with theme toggle & sign-out
 │
 ├── components/
 │   ├── ui/
-│   │   ├── button.tsx          # ShadCN button component
-│   │   └── light-dark-toggle.tsx  # Dark/light mode toggle
-│   └── sign-in-button.tsx      # Google Sign-In logic (client)
-│   └── sign-out-button.tsx     # Supabase Sign-Out logic
+│   │   └── button.tsx            # ShadCN button component
+│   ├── ModeToggle.tsx            # Dark/light mode toggle (not in ui/)
+│   ├── sign-in-button.tsx        # Google Sign-In button logic
+│   └── sign-out-button.tsx       # Supabase Sign-Out button
 │
 ├── lib/
 │   └── supabase/
-│       ├── client.ts           # Supabase browser client
-│       ├── server.ts           # Supabase server client (SSR)
-│       └── middleware.ts       # Session middleware
-│
-├── app/
-│   └── auth/
-│       └── callback/
-│           └── route.ts        # Google OAuth callback handler
+│       ├── client.ts             # Supabase browser client
+│       ├── server.ts             # Supabase server client (SSR)
+│       └── middleware.ts         # Session middleware
 │
 ├── public/
-│
 ├── styles/
-│
 ├── tailwind.config.ts
 ├── tsconfig.json
 └── next.config.js
