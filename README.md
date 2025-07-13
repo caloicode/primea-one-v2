@@ -1,36 +1,115 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 Next.js + Supabase + Google OAuth Boilerplate
 
-## Getting Started
+A minimalist Next.js boilerplate with built-in **Supabase Google OAuth**, **ShadCN UI**, and **Dark/Light mode support** — perfect for modern SaaS apps and dashboards.
 
-First, run the development server:
+---
+
+## ✨ Features
+
+- ✅ Google Sign-in via Supabase Auth
+- 🧠 Session handling with Supabase SSR helpers
+- 🎨 ShadCN UI (Radix + Tailwind CSS)
+- 🌓 Dark/light theme toggle using `next-themes`
+- 🧼 Clean folder structure — ready for scaling
+- 💨 TailwindCSS + base UI setup
+
+---
+
+## 🔧 Installation
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/your-username/your-repo-name.git
+cd your-repo-name
+pnpm install # or npm install / yarn install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 1. Setup environment variables
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Create a `.env.local` file:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+# .env.local
+NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+```
 
-## Learn More
+### 2. Configure Supabase Auth
 
-To learn more about Next.js, take a look at the following resources:
+- Enable **Google provider** in Supabase Auth dashboard
+- Add redirect URL: `http://localhost:3000/auth/callback`
+- Add this domain in Google Cloud OAuth:
+  - Authorized JS Origins: `http://<supabase-url>.supabase.co`
+  - Authorized Redirect URI: `https://<supabase-url>.supabase.co/auth/v1/callback`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🧾 Folder Structure
 
-## Deploy on Vercel
+```bash
+.
+├── app/
+│   ├── page.tsx                # Public homepage (with Google Sign-In)
+│   └── protected/
+│       ├── page.tsx            # Protected dashboard
+│       └── layout.tsx          # Layout with navbar, theme toggle, sign-out
+│
+├── components/
+│   ├── ui/
+│   │   ├── button.tsx          # ShadCN button component
+│   │   └── light-dark-toggle.tsx  # Dark/light mode toggle
+│   └── sign-in-button.tsx      # Google Sign-In logic (client)
+│   └── sign-out-button.tsx     # Supabase Sign-Out logic
+│
+├── lib/
+│   └── supabase/
+│       ├── client.ts           # Supabase browser client
+│       ├── server.ts           # Supabase server client (SSR)
+│       └── middleware.ts       # Session middleware
+│
+├── app/
+│   └── auth/
+│       └── callback/
+│           └── route.ts        # Google OAuth callback handler
+│
+├── public/
+│
+├── styles/
+│
+├── tailwind.config.ts
+├── tsconfig.json
+└── next.config.js
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🧪 Running Dev Server
+
+```bash
+pnpm dev # or npm run dev / yarn dev
+```
+
+Then visit: [http://localhost:3000](http://localhost:3000)
+
+---
+
+## 📦 Stack
+
+- [Next.js 15 (App Router)](https://nextjs.org/)
+- [Supabase Auth](https://supabase.com/docs/guides/auth)
+- [ShadCN UI](https://ui.shadcn.dev)
+- [Tailwind CSS](https://tailwindcss.com)
+- [Lucide Icons](https://lucide.dev)
+- [next-themes](https://github.com/pacocoursey/next-themes)
+
+---
+
+## 💎 Author
+
+Built by Caroline Codilla using 💡 and ☕  
+Boilerplate powered by **Supabase + Next.js + ShadCN**
+
+---
+
+## 📜 License
+
+MIT
