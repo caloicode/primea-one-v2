@@ -13,7 +13,7 @@ export default async function ProtectedPage() {
 
   return (
     <div className="w-full max-w-xl text-center space-y-8">
-      <h1 className="text-3xl font-bold">This is our Dashboard 💎</h1>
+      <h1 className="text-3xl font-bold">Test Change 💎</h1>
       <div className="text-left text-sm border rounded p-4 font-mono bg-muted overflow-auto">
         <h2 className="text-base font-semibold mb-2">User info:</h2>
         <pre>{JSON.stringify(data.user, null, 2)}</pre>

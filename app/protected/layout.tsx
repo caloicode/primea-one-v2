@@ -11,7 +11,7 @@ export default function ProtectedLayout({
     <main className="min-h-screen flex flex-col">
       <nav className="w-full flex justify-between items-center border-b border-border p-4">
         <Link href="/" className="text-lg font-semibold">
-          MyApp
+          Primea
         </Link>
         <div className="flex gap-3 items-center">
           <ModeToggle />
