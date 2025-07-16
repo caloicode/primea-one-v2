@@ -1,23 +1,30 @@
-// app/protected/page.tsx
+'use client';
 
-import { redirect } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import links from '@/lib/data/links.json';
+import RandomQuoteBubble from '@/components/RandomQuoteBubble';
 
-export default async function ProtectedPage() {
-  const supabase = await createClient();
-  const { data, error } = await supabase.auth.getUser();
-
-  if (error || !data?.user) {
-    redirect("/");
-  }
-
+export default function ProtectedHomePage() {
   return (
-    <div className="w-full max-w-xl text-center space-y-8">
-      <h1 className="text-3xl font-bold">Test Change 💎</h1>
-      <div className="text-left text-sm border rounded p-4 font-mono bg-muted overflow-auto">
-        <h2 className="text-base font-semibold mb-2">User info:</h2>
-        <pre>{JSON.stringify(data.user, null, 2)}</pre>
+    <div className="w-full flex flex-col items-center space-y-10 text-center relative">
+      <h1 className="text-3xl font-bold">Primea One</h1>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-md sm:max-w-lg">
+        {links.map(({ name, path }) => (
+          <Button asChild key={name} variant="secondary" className="w-full">
+            <Link
+              href={path}
+              target={path.startsWith('http') ? '_blank' : undefined}
+              rel={path.startsWith('http') ? 'noopener noreferrer' : undefined}
+            >
+              {name}
+            </Link>
+          </Button>
+        ))}
       </div>
+
+      <RandomQuoteBubble />
     </div>
   );
 }

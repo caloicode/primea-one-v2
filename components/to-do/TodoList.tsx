@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { createClient } from '@/lib/supabase/client';
-import { Collapsible, CollapsibleContent } from '@/components/ui/collapsible';
-import TodoRow from './TodoRow';
-import TodoDetails from './TodoDetails';
-import type { Todo, User } from '@/types/todo';
+import { useEffect, useState } from "react";
+import { createClient } from "@/lib/supabase/client";
+import { Collapsible, CollapsibleContent } from "@/components/ui/collapsible";
+import TodoRow from "./TodoRow";
+import TodoDetails from "./TodoDetails";
+import type { Todo, User } from "@/types/todo";
 
 export default function TodoList({
   refresh,
@@ -21,15 +21,15 @@ export default function TodoList({
   useEffect(() => {
     const fetchTodos = async () => {
       const { data, error } = await supabase
-        .from('todos')
-        .select('*')
-        .order('created_at', { ascending: false });
+        .from("todos")
+        .select("*")
+        .order("created_at", { ascending: false });
 
       if (!error && data) setTodos(data as Todo[]);
     };
 
     const fetchUsers = async () => {
-      const { data, error } = await supabase.rpc('get_all_users');
+      const { data, error } = await supabase.rpc("get_all_users");
       if (!error && data) setUsers(data as User[]);
     };
 
@@ -42,13 +42,21 @@ export default function TodoList({
       {todos.map((todo) => (
         <Collapsible
           key={todo.id}
-          className="border rounded-md px-3 py-2 bg-white dark:bg-muted shadow-sm"
+          className={`border rounded-md px-3 py-2 shadow-sm transition-colors
+      ${
+        todo.is_checked
+          ? "bg-green-100 dark:bg-green-900/20"
+          : "bg-white dark:bg-muted"
+      }
+    `}
         >
           <TodoRow
             todo={todo}
             updateLocal={(updated) => {
               setTodos((prev) =>
-                prev.map((t) => (t.id === updated.id ? { ...t, ...updated } : t))
+                prev.map((t) =>
+                  t.id === updated.id ? { ...t, ...updated } : t
+                )
               );
             }}
           />
@@ -67,4 +75,3 @@ export default function TodoList({
     </div>
   );
 }
-

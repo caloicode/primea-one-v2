@@ -1,0 +1,13 @@
+[
+  { "name": "Projects", "path": "/protected/projects" },
+  { "name": "Templates", "path": "/protected/templates" },
+  { "name": "Codex", "path": "/protected/codex" },
+  { "name": "Process Library", "path": "/protected/processes" },
+  { "name": "Calendar", "path": "/protected/calendar" },
+  { "name": "Blog", "path": "/protected/blog" },
+  { "name": "Space Checklist", "path": "http://space-checklist.vercel.app/" },
+  {
+    "name": "3D Detail Library",
+    "path": "https://primea-detail-library.vercel.app/"
+  }
+]

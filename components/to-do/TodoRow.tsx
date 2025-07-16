@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { useTransition } from 'react';
-import { createClient } from '@/lib/supabase/client';
-import { CollapsibleTrigger } from '@/components/ui/collapsible';
-import { Button } from '@/components/ui/button';
-import { ChevronDown } from 'lucide-react';
-import type { Todo } from '@/types/todo';
+import { useTransition } from "react";
+import { createClient } from "@/lib/supabase/client";
+import { CollapsibleTrigger } from "@/components/ui/collapsible";
+import { Button } from "@/components/ui/button";
+import { ChevronDown } from "lucide-react";
+import type { Todo } from "@/types/todo";
 
 export default function TodoRow({
   todo,
@@ -21,9 +21,9 @@ export default function TodoRow({
     const is_checked = e.target.checked;
     startTransition(async () => {
       const { error } = await supabase
-        .from('todos')
+        .from("todos")
         .update({ is_checked })
-        .eq('id', todo.id);
+        .eq("id", todo.id);
 
       if (!error) {
         updateLocal({ id: todo.id, is_checked });
@@ -33,12 +33,12 @@ export default function TodoRow({
 
   const getPriorityColor = () => {
     switch (todo.priority) {
-      case 'High':
-        return 'bg-red-500';
-      case 'Medium':
-        return 'bg-yellow-400';
+      case "High":
+        return "bg-red-500";
+      case "Medium":
+        return "bg-yellow-400";
       default:
-        return 'bg-green-500';
+        return "bg-green-500";
     }
   };
 
@@ -51,7 +51,13 @@ export default function TodoRow({
           onChange={handleCheck}
           className="w-4 h-4 accent-primary"
         />
-        <span className="text-sm line-clamp-1">{todo.task}</span>
+        <span
+          className={`text-sm line-clamp-1 ${
+            todo.is_checked ? "line-through text-muted-foreground" : ""
+          }`}
+        >
+          {todo.task}
+        </span>
       </div>
 
       <div className="flex items-center gap-2">

@@ -1,9 +1,10 @@
 'use client';
 
 import Image from 'next/image';
-import { Trash2, SquarePen } from 'lucide-react';
+import { SquarePen } from 'lucide-react';
 import type { Todo, User } from '@/types/todo';
 import { createClient } from '@/lib/supabase/client';
+import ConfirmDeleteDialog from './ConfirmDeleteDialog';
 
 export default function TodoDetails({
   todo,
@@ -33,12 +34,7 @@ export default function TodoDetails({
         >
           <SquarePen className="w-4 h-4" />
         </button>
-        <button
-          onClick={handleDelete}
-          className="text-sm text-red-500 hover:text-destructive"
-        >
-          <Trash2 className="w-4 h-4" />
-        </button>
+        <ConfirmDeleteDialog onConfirm={handleDelete} />
       </div>
 
       {todo.notes && (
