@@ -1,6 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { notFound } from "next/navigation";
-import { FolderClosed, Trash2 } from "lucide-react";
+import { FolderClosed } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { EditProjectDialog } from "@/components/projects/EditProjectDialog";
 import { DeleteProjectButton } from "@/components/projects/DeleteProjectButton";
@@ -22,10 +22,12 @@ export default async function ProjectPage({
 
   if (error || !project) return notFound();
 
+  const pct = project.pct <= 1 ? project.pct * 100 : project.pct;
+
   return (
     <main className="px-4 pt-20 pb-10">
       <div className="max-w-2xl mx-auto space-y-6">
-        {/* Top Row: Icons */}
+        {/* Top Row */}
         <div className="flex justify-between items-start">
           <div>
             <p className="text-xs text-muted-foreground">
@@ -47,42 +49,25 @@ export default async function ProjectPage({
               </a>
             )}
             <EditProjectDialog project={project} />
-            <div className="flex gap-3 items-center">
-              {project.drive_link && (
-                <a
-                  href={project.drive_link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="Open Drive Folder"
-                  className="text-muted-foreground hover:text-primary"
-                >
-                  <FolderClosed className="w-5 h-5" />
-                </a>
-              )}
-              <DeleteProjectButton projectCode={project.project_code} />
-            </div>
+            <DeleteProjectButton projectCode={project.project_code} />
           </div>
         </div>
 
-        {/* Project Details */}
+        {/* Details */}
         <div className="text-sm text-muted-foreground space-y-1">
-          {/* Progress Bar */}
           <div className="space-y-1">
             <p className="mb-1">
               <strong>Progress:</strong>
             </p>
             <div className="flex items-center gap-2">
-              <Progress value={project.pct} className="flex-1" />
-              <span className="text-sm text-muted-foreground">
-                {project.pct}%
-              </span>
+              <Progress value={pct} className="flex-1" />
+              <span className="text-sm text-muted-foreground">{pct}%</span>
             </div>
           </div>
 
           <p>
             <strong>Title:</strong> {project.project_title}
           </p>
-
           <p>
             <strong>Location:</strong> {project.location}
           </p>
@@ -92,7 +77,6 @@ export default async function ProjectPage({
           <p>
             <strong>Status:</strong> {project.status}
           </p>
-
           <p>
             <strong>Notes:</strong> {project.notes}
           </p>
