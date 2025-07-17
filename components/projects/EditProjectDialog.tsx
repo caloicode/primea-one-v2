@@ -11,6 +11,7 @@ import { SquarePen } from "lucide-react";
 import ProjectForm from "./ProjectForm";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 type Props = {
   project: any; // ideally, type this properly
@@ -18,6 +19,7 @@ type Props = {
 
 export function EditProjectDialog({ project }: Props) {
   const [open, setOpen] = useState(false);
+  const router = useRouter();
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -40,7 +42,8 @@ export function EditProjectDialog({ project }: Props) {
         <ProjectForm
           mode="edit"
           defaultValues={project}
-          onSuccess={() => setOpen(false)}
+          onClose={() => setOpen(false)} // 👈 Add this
+          onSuccess={() => router.refresh()} // 👈 Optional: force refresh after close
         />
       </DialogContent>
     </Dialog>

@@ -9,6 +9,8 @@ import { toast } from "sonner";
 import { createClient } from "@/lib/supabase/client";
 import GroupSelector from "../to-do/GroupSelector";
 import ProgressSlider from "./ProgressSlider";
+import { useRouter } from "next/navigation";
+
 
 type ProjectFormProps = {
   onClose?: () => void;
@@ -26,6 +28,8 @@ export default function ProjectForm({
   defaultValues = {},
 }: ProjectFormProps) {
   const supabase = createClient();
+  const router = useRouter();
+
 
   const [form, setForm] = useState({
     project_code: defaultValues.project_code || "",
@@ -48,28 +52,29 @@ export default function ProjectForm({
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+ const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
 
-    const payload = {
-      ...form,
-      pct: parseFloat(form.pct.toString()),
-    };
-
-    const { error } =
-      mode === "edit"
-        ? await supabase.from("projects").update(payload).eq("id", defaultValues.id)
-        : await supabase.from("projects").insert(payload);
-
-    if (error) {
-      toast.error("Error saving project");
-      console.error(error);
-    } else {
-      toast.success(`Project ${mode === "edit" ? "updated" : "added"} successfully!`);
-      onClose?.();
-      onSuccess?.();
-    }
+  const payload = {
+    ...form,
+    pct: parseFloat(form.pct.toString()),
   };
+
+  const { error } =
+    mode === "edit"
+      ? await supabase.from("projects").update(payload).eq("id", defaultValues.id)
+      : await supabase.from("projects").insert(payload);
+
+  if (error) {
+    toast.error("Error saving project");
+    console.error(error);
+  } else {
+    toast.success(`Project ${mode === "edit" ? "updated" : "added"} successfully!`);
+    onClose?.();
+    router.refresh(); // ✅ refresh the current page (without full reload)
+  }
+};
+
 
   return (
     <form className="space-y-4 py-2" onSubmit={handleSubmit}>
