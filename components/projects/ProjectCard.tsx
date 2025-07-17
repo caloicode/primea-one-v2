@@ -3,10 +3,10 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Folder } from "lucide-react";
 import Link from "next/link";
-import type { Project } from "@/types/project";
+import { Project } from "@/types/project";
 
 export default function ProjectCard({ project }: { project: Project }) {
-  const percent = Math.round(parseFloat(project.pct || "0") * 100);
+  const percent = Math.round((project.pct ?? 0) * 100);
 
   const openDrive = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -14,7 +14,10 @@ export default function ProjectCard({ project }: { project: Project }) {
   };
 
   return (
-    <Link href={`/projects/${project.project_code}`} className="block">
+    <Link
+      href={`/protected/projects/${project.project_code}`}
+      className="block"
+    >
       <Card className="w-full p-3 sm:p-4 hover:shadow-md transition">
         <CardContent className="flex flex-col gap-2 p-0">
           <div className="flex items-start justify-between">

@@ -1,19 +1,34 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ArrowUpDown, ArrowDownUp } from "lucide-react";
+import { createClient } from "@/lib/supabase/client";
 import type { Project } from "@/types/project";
 import ProjectCard from "./ProjectCard";
 
-export default function ProjectList({ projects }: { projects: Project[] }) {
+export default function ProjectList({ refresh }: { refresh: number }) {
+  const supabase = createClient();
+  const [projects, setProjects] = useState<Project[]>([]);
   const [query, setQuery] = useState("");
   const [sortAsc, setSortAsc] = useState(true);
 
+  useEffect(() => {
+    const fetchProjects = async () => {
+      const { data, error } = await supabase
+        .from("projects")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+      if (!error && data) setProjects(data as Project[]);
+    };
+
+    fetchProjects();
+  }, [refresh]);
+
   const filtered = useMemo(() => {
     const q = query.toLowerCase();
-
     return projects
       .filter(
         (project) =>
