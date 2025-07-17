@@ -10,9 +10,11 @@ import type { Todo, User } from "@/types/todo";
 export default function TodoList({
   refresh,
   setEditingTodo,
+  projectCode,
 }: {
   refresh: number;
   setEditingTodo: (todo: Todo) => void;
+  projectCode: string;
 }) {
   const supabase = createClient();
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -23,6 +25,7 @@ export default function TodoList({
       const { data, error } = await supabase
         .from("todos")
         .select("*")
+        .eq("project_code", projectCode)
         .order("created_at", { ascending: false });
 
       if (!error && data) setTodos(data as Todo[]);
@@ -35,7 +38,7 @@ export default function TodoList({
 
     fetchTodos();
     fetchUsers();
-  }, [refresh]);
+  }, [refresh, projectCode]);
 
   return (
     <div className="space-y-2">

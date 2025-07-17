@@ -1,29 +1,31 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { createClient } from '@/lib/supabase/client';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Button } from '@/components/ui/button';
-import { Plus, Save } from 'lucide-react';
-import DateRangeSelector from './DateRangeSelector';
-import GroupSelector from './GroupSelector';
-import PrioritySelect from './PrioritySelect';
-import { DateRange } from 'react-day-picker';
-import type { Todo } from '@/types/todo';
+import { useState, useEffect } from "react";
+import { createClient } from "@/lib/supabase/client";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { Plus, Save } from "lucide-react";
+import DateRangeSelector from "./DateRangeSelector";
+import GroupSelector from "./GroupSelector";
+import PrioritySelect from "./PrioritySelect";
+import { DateRange } from "react-day-picker";
+import type { Todo } from "@/types/todo";
 
 export default function TodoForm({
   onSuccess,
   todo,
+  projectCode,
 }: {
   onSuccess?: () => void;
   todo?: Todo | null;
+  projectCode?: string;
 }) {
   const supabase = createClient();
 
-  const [task, setTask] = useState('');
-  const [notes, setNotes] = useState('');
-  const [priority, setPriority] = useState<'Low' | 'Medium' | 'High'>('Medium');
+  const [task, setTask] = useState("");
+  const [notes, setNotes] = useState("");
+  const [priority, setPriority] = useState<"Low" | "Medium" | "High">("Medium");
   const [dateRange, setDateRange] = useState<DateRange | undefined>();
   const [assignedUsers, setAssignedUsers] = useState<string[]>([]);
   const [expanded, setExpanded] = useState(false);
@@ -32,8 +34,8 @@ export default function TodoForm({
   useEffect(() => {
     if (todo) {
       setTask(todo.task);
-      setNotes(todo.notes ?? '');
-      setPriority(todo.priority as 'Low' | 'Medium' | 'High');
+      setNotes(todo.notes ?? "");
+      setPriority(todo.priority as "Low" | "Medium" | "High");
       setAssignedUsers(todo.assigned_users ?? []);
       setDateRange(
         todo.start_date || todo.end_date
@@ -53,7 +55,7 @@ export default function TodoForm({
     const { data: userData } = await supabase.auth.getUser();
     const user = userData?.user;
     if (!user) {
-      console.error('User not authenticated');
+      console.error("User not authenticated");
       return;
     }
 
@@ -69,27 +71,31 @@ export default function TodoForm({
     let error;
     if (todo?.id) {
       // ✏️ Edit mode
-      const res = await supabase.from('todos').update(payload).eq('id', todo.id);
+      const res = await supabase
+        .from("todos")
+        .update(payload)
+        .eq("id", todo.id);
       error = res.error;
     } else {
       // ➕ Add mode
-      const res = await supabase.from('todos').insert({
+      const res = await supabase.from("todos").insert({
         ...payload,
         user_id: user.id,
         is_checked: false,
+        project_code: projectCode ?? null, // ✅ ADD THIS
       });
       error = res.error;
     }
 
     if (error) {
-      console.error('Save failed:', error.message);
+      console.error("Save failed:", error.message);
       return;
     }
 
     // ✅ Reset after save
-    setTask('');
-    setNotes('');
-    setPriority('Medium');
+    setTask("");
+    setNotes("");
+    setPriority("Medium");
     setDateRange(undefined);
     setAssignedUsers([]);
     setExpanded(false);
@@ -128,14 +134,19 @@ export default function TodoForm({
               <PrioritySelect value={priority} onChange={setPriority} />
             </div>
             <div>
-              <label className="block text-sm mb-1 font-medium">Timeframe</label>
+              <label className="block text-sm mb-1 font-medium">
+                Timeframe
+              </label>
               <DateRangeSelector value={dateRange} onChange={setDateRange} />
             </div>
           </div>
 
           <div>
             <label className="block text-sm mb-1 font-medium">Assign to</label>
-            <GroupSelector selected={assignedUsers} onChange={setAssignedUsers} />
+            <GroupSelector
+              selected={assignedUsers}
+              onChange={setAssignedUsers}
+            />
           </div>
         </div>
       )}

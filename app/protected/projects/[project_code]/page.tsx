@@ -4,6 +4,7 @@ import { FolderClosed } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { EditProjectDialog } from "@/components/projects/EditProjectDialog";
 import { DeleteProjectButton } from "@/components/projects/DeleteProjectButton";
+import ProjectTodos from "@/components/projects/ProjectTodos";
 
 export default async function ProjectPage({
   params,
@@ -81,6 +82,7 @@ export default async function ProjectPage({
             <strong>Notes:</strong> {project.notes}
           </p>
         </div>
+        <ProjectTodos projectCode={project.project_code} />
       </div>
     </main>
   );

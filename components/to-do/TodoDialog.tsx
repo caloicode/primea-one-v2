@@ -14,11 +14,13 @@ export default function TodoDialog({
   setOpen,
   todo,
   onSuccess,
+  projectCode,
 }: {
   open: boolean;
   setOpen: (state: boolean) => void;
   todo?: Todo | null;
   onSuccess: () => void;
+  projectCode?: string;
 }) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -34,9 +36,10 @@ export default function TodoDialog({
         <TodoForm
           todo={todo}
           onSuccess={() => {
-            onSuccess();
+            onSuccess?.();
             setOpen(false);
           }}
+          projectCode={projectCode}
         />
       </DialogContent>
     </Dialog>
