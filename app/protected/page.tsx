@@ -1,30 +1,35 @@
 'use client';
 
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
 import links from '@/lib/data/links.json';
+import HomeTile from '@/components/home/HomeTile';
 import RandomQuoteBubble from '@/components/RandomQuoteBubble';
 
 export default function ProtectedHomePage() {
   return (
-    <div className="w-full flex flex-col items-center space-y-10 text-center relative">
-      <h1 className="text-3xl font-bold">Primea One</h1>
+    <main
+      className={`
+        min-h-screen flex flex-col items-center px-4 pt-24 relative text-center
+        bg-[url('/background.jpg')] bg-cover bg-center bg-no-repeat
+      `}
+    >
+      {/* Overlay */}
+      <div className="absolute inset-0 z-0 dark:bg-black/40" />
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-md sm:max-w-lg">
-        {links.map(({ name, path }) => (
-          <Button asChild key={name} variant="secondary" className="w-full">
-            <Link
-              href={path}
-              target={path.startsWith('http') ? '_blank' : undefined}
-              rel={path.startsWith('http') ? 'noopener noreferrer' : undefined}
-            >
-              {name}
-            </Link>
-          </Button>
-        ))}
+      {/* Top-right floating quote */}
+      <div className="absolute top-4 right-4 z-10">
+        <RandomQuoteBubble />
       </div>
 
-      <RandomQuoteBubble />
-    </div>
+      {/* Content */}
+      <div className="relative z-10 flex flex-col items-center space-y-10 w-full">
+        <h1 className="text-3xl font-bold text-white drop-shadow">Primea One</h1>
+
+        <div className="grid grid-cols-3 sm:grid-cols-4 gap-8 max-w-4xl w-full">
+          {links.map(({ name, path, icon }) => (
+            <HomeTile key={name} name={name} path={path} icon={icon} />
+          ))}
+        </div>
+      </div>
+    </main>
   );
 }

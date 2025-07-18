@@ -14,7 +14,7 @@ import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
 import { SignOutButton } from './SignOutButton';
 import Image from 'next/image';
-import links from '@/lib/data/links.json';
+import links from '@/lib/data/links';
 
 export default function MenuDrawer({ user }: { user: any }) {
   const pathname = usePathname();

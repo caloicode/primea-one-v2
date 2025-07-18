@@ -36,23 +36,23 @@ export default function Home() {
 
   return (
     <main
-      className={`
-        min-h-screen flex flex-col items-center justify-center px-4 relative text-center
-       bg-[url('/background.jpg')] bg-cover bg-center bg-no-repeat
-      `}
+      className="min-h-screen flex flex-col items-center justify-center px-4 relative bg-[url('/background.jpg')] bg-cover bg-center bg-no-repeat"
     >
       {/* Top-right toggle */}
       <header className="absolute top-4 right-4">
         <ModeToggle />
       </header>
 
-      <div className="space-y-6 max-w-md w-full">
-        <h1 className="text-4xl font-bold tracking-tight">Primea One</h1>
-        <p className="text-muted-foreground text-sm">
+      {/* Glass Card */}
+      <div className="backdrop-blur-sm bg-white/10 border border-white/20 rounded-2xl p-8 shadow-xl w-full max-w-md text-center space-y-6">
+        <h1 className="text-4xl font-bold tracking-tight text-black">
+          PrimeA One
+        </h1>
+        <p className="text-sm text-black">
           <strong>One</strong> unified platform to access our project management tools.
         </p>
 
-        {error && <p className="text-sm text-red-500">{error}</p>}
+        {error && <p className="text-sm text-red-300">{error}</p>}
 
         <div className="flex justify-center">
           <Button

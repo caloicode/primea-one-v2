@@ -1,13 +1,11 @@
 [
-  { "name": "Projects", "path": "/protected/projects" },
-  { "name": "Templates", "path": "/protected/templates" },
-  { "name": "Codex", "path": "/protected/codex" },
-  { "name": "Process Library", "path": "/protected/processes" },
-  { "name": "Calendar", "path": "/protected/calendar" },
-  { "name": "Blog", "path": "/protected/blog" },
-  { "name": "Space Checklist", "path": "http://space-checklist.vercel.app/" },
-  {
-    "name": "3D Detail Library",
-    "path": "https://primea-detail-library.vercel.app/"
-  }
+  { "name": "Projects", "path": "/protected/projects", "icon": "House" },
+  { "name": "Templates", "path": "/protected/templates", "icon": "Album" },
+  { "name": "Codex", "path": "/protected/codex", "icon": "BookOpen" },
+  { "name": "Process Library", "path": "https://app.diagrams.net/#G1ovc7c5ujbnc5mCWqUxyMZvgSAWG0vkkO#%7B%22pageId%22%3A%220nNBsAj-0VNg6ncp8M1K%22%7D", "icon": "FolderCog" },
+  { "name": "Calendar", "path": "/protected/calendar", "icon": "CalendarDays" },
+  { "name": "Blog", "path": "/protected/blog", "icon": "Waypoints" },
+  { "name": "Space Checklist", "path": "http://space-checklist.vercel.app/", "icon": "Layers" },
+  { "name": "3D Detail Library", "path": "https://primea-detail-library.vercel.app/", "icon": "Library" },
+  { "name": "Directory", "path": "/protected/directory", "icon": "Contact" }
 ]

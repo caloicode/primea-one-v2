@@ -3,8 +3,8 @@ import type { Metadata } from "next"
 import { ThemeProvider } from "@/components/theme-provider"
 
 export const metadata: Metadata = {
-  title: "Project X",
-  description: "A coding project",
+  title: "Primea One",
+  description: "A Project Management App",
 }
 
 export default function RootLayout({
