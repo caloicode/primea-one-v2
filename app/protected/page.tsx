@@ -22,7 +22,7 @@ export default function ProtectedHomePage() {
 
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center space-y-10 w-full">
-        <h1 className="text-3xl font-bold text-white drop-shadow">Primea One</h1>
+        <h1 className="text-3xl font-bold text-white drop-shadow">PrimeA One</h1>
 
         <div className="grid grid-cols-3 sm:grid-cols-4 gap-8 max-w-4xl w-full">
           {links.map(({ name, path, icon }) => (

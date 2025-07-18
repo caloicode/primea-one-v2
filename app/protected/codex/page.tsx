@@ -114,7 +114,7 @@ export default function CodexPage() {
     <main className="max-w-4xl mx-auto p-6 mt-16 space-y-6">
       <h1 className="text-3xl font-bold tracking-tight">The Primea Codex</h1>
       <p className="text-muted-foreground text-sm leading-relaxed">
-        The Primea Codex is our living manual— a curated collection of who we are,
+        The Primea Codex is our organization manual— a curated collection of who we are,
         how we work, and what we believe in as a design practice. It is more than just
         a set of rules or templates; it’s a reflection of Primea’s core — our shared
         standards, our design philosophy, and our commitment to consistency and growth.

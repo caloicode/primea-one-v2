@@ -7,5 +7,6 @@
   { "name": "Blog", "path": "/protected/blog", "icon": "Waypoints" },
   { "name": "Space Checklist", "path": "http://space-checklist.vercel.app/", "icon": "Layers" },
   { "name": "3D Detail Library", "path": "https://primea-detail-library.vercel.app/", "icon": "Library" },
-  { "name": "Directory", "path": "/protected/directory", "icon": "Contact" }
+  { "name": "Directory", "path": "/protected/directory", "icon": "Contact" },
+  { "name": "Benotti Library", "path": "http://localhost:3001/", "icon": "Armchair" }
 ]

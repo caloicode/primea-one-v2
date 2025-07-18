@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { Gem } from 'lucide-react';
-import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { createClient } from '@/lib/supabase/client';
 
@@ -43,10 +43,9 @@ export default function RandomQuoteBubble() {
 
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="text-center max-w-sm space-y-3">
-          <p className="text-xs uppercase font-semibold text-muted-foreground tracking-wide">
-            Learning Gem
-          </p>
-
+          <DialogHeader className="text-left">
+          <DialogTitle>Learning Gem</DialogTitle>
+        </DialogHeader>
           {quote ? (
             <>
               <p className="text-base italic leading-relaxed">“{quote.quote}”</p>
