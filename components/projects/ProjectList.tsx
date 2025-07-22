@@ -12,7 +12,7 @@ export default function ProjectList({ refresh }: { refresh: number }) {
   const supabase = createClient();
   const [projects, setProjects] = useState<Project[]>([]);
   const [query, setQuery] = useState("");
-  const [sortAsc, setSortAsc] = useState(true);
+  const [sortAsc, setSortAsc] = useState(false);
 
   useEffect(() => {
     const fetchProjects = async () => {
