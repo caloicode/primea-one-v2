@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { SquarePen } from 'lucide-react';
 import type { Todo, User } from '@/types/todo';
 import { createClient } from '@/lib/supabase/client';
-import ConfirmDeleteDialog from './ConfirmDeleteDialog';
+import ConfirmDeleteDialog from '../ConfirmDeleteDialog';
 
 export default function TodoDetails({
   todo,

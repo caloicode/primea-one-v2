@@ -1,18 +1,11 @@
-"use client";
+import DirectoryList from "@/components/directory/DirectoryList";
 
-import { Cog } from "lucide-react";
-
-export default function ProcessesPage() {
+export default function DirectoryPage() {
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center text-center px-4">
-      <div className="flex flex-col items-center gap-4 text-muted-foreground">
-        <Cog className="w-12 h-12 animate-spin-slow" />
-        <h1 className="text-xl font-semibold">
-          This page is currently under development
-        </h1>
-        <p className="text-sm">
-          We're working on something great. Please check back soon!
-        </p>
+    <main className="px-4 pt-20 pb-10">
+      <div className="max-w-2xl mx-auto space-y-6">
+        <h1 className="text-2xl font-bold">Calling Card Directory</h1>
+        <DirectoryList refresh={0} />
       </div>
     </main>
   );

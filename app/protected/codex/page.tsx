@@ -78,9 +78,7 @@ export default function CodexPage() {
       title: "WORKFLOW PROCESS",
       icon: <MonitorCog className="w-5 h-5 text-primary" />,
       items: [
-        <Link key="phases" href="/protected/codex/phases" className="underline text-primary">
-          Project Phases (See SPP Docs)
-        </Link>,
+          "Project Phases (See SPP Docs)",
         "Daily/Weekly Documentation Standard",
         "Internal Reviews & Feedback Loops",
       ],

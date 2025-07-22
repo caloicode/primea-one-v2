@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
-import ConfirmDeleteDialog from "../to-do/ConfirmDeleteDialog";
+import ConfirmDeleteDialog from "../ConfirmDeleteDialog";
 import { toast } from "sonner";
 
 export function DeleteProjectButton({ projectCode }: { projectCode: string }) {
