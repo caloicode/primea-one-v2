@@ -1,6 +1,6 @@
 'use client';
 
-import links from '@/lib/data/links.json';
+import links from '@/lib/data/links';
 import HomeTile from '@/components/home/HomeTile';
 import RandomQuoteBubble from '@/components/RandomQuoteBubble';
 

@@ -1,27 +1,28 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
+import Link from "next/link";
 import {
   Sheet,
   SheetClose,
   SheetContent,
   SheetHeader,
   SheetTrigger,
-} from '@/components/ui/sheet';
-import { Menu } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { usePathname } from 'next/navigation';
-import clsx from 'clsx';
-import { SignOutButton } from './SignOutButton';
-import Image from 'next/image';
-import links from '@/lib/data/links.json';
+} from "@/components/ui/sheet";
+import { Menu } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { usePathname } from "next/navigation";
+import clsx from "clsx";
+import { SignOutButton } from "./SignOutButton";
+import Image from "next/image";
+import links from "@/lib/data/links";
+import { DialogTitle } from "./ui/dialog";
 
 export default function MenuDrawer({ user }: { user: any }) {
   const pathname = usePathname();
   const year = new Date().getFullYear();
 
   const avatar = user?.user_metadata?.avatar_url;
-  const name = user?.user_metadata?.full_name ?? 'Unnamed User';
+  const name = user?.user_metadata?.full_name ?? "Unnamed User";
 
   return (
     <Sheet>
@@ -34,7 +35,9 @@ export default function MenuDrawer({ user }: { user: any }) {
       <SheetContent side="right" className="w-64 sm:w-80 flex flex-col">
         {/* User Avatar and Name */}
         <SheetHeader className="px-6 pt-6 text-left">
-          <div className="flex flex-col items-center gap-2">
+          <DialogTitle className="text-lg font-semibold">Menu</DialogTitle>{" "}
+          {/* ✅ visible title */}
+          <div className="flex flex-col items-center gap-2 mt-4">
             {avatar ? (
               <Image
                 src={avatar}
@@ -53,17 +56,33 @@ export default function MenuDrawer({ user }: { user: any }) {
         </SheetHeader>
 
         {/* Scrollable Link List */}
-        <div className="flex-1 overflow-y-auto mt-6">
+        <div className="flex-1 overflow-y-auto">
           <nav className="flex flex-col divide-y text-sm">
+            {/* Home Link */}
+            <SheetClose asChild>
+              <Link
+                href="/protected"
+                className={clsx(
+                  "px-6 py-3 transition-colors",
+                  pathname === "/protected"
+                    ? "text-primary font-semibold"
+                    : "hover:text-primary"
+                )}
+              >
+                Home
+              </Link>
+            </SheetClose>
+
+            {/* Other Links */}
             {links.map(({ name, path }) => (
               <SheetClose asChild key={name}>
                 <Link
                   href={path}
                   className={clsx(
-                    'px-6 py-3 transition-colors',
+                    "px-6 py-3 transition-colors",
                     pathname === path
-                      ? 'text-primary font-semibold'
-                      : 'hover:text-primary'
+                      ? "text-primary font-semibold"
+                      : "hover:text-primary"
                   )}
                 >
                   {name}

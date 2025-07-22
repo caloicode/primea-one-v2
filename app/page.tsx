@@ -4,7 +4,11 @@ import { ModeToggle } from '@/components/light-dark-toggle';
 import { Button } from '@/components/ui/button';
 import { createClient } from '@/lib/supabase/client';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
+//comment out
+import Loader from '@/components/Loader';
+
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);

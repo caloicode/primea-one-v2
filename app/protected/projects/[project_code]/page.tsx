@@ -23,7 +23,9 @@ export default async function ProjectPage({
 
   if (error || !project) return notFound();
 
-  const pct = project.pct <= 1 ? project.pct * 100 : project.pct;
+  const pct = Number(
+    (project.pct <= 1 ? project.pct * 100 : project.pct).toFixed(2)
+  );
 
   return (
     <main className="px-4 pt-20 pb-10">
@@ -62,7 +64,9 @@ export default async function ProjectPage({
             </p>
             <div className="flex items-center gap-2">
               <Progress value={pct} className="flex-1" />
-              <span className="text-sm text-muted-foreground">{pct}%</span>
+              <span className="text-sm text-muted-foreground">
+                {pct.toFixed(0)}%
+              </span>
             </div>
           </div>
 

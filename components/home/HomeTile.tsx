@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { cn } from '@/lib/utils';
+import Link from "next/link";
+import { cn } from "@/lib/utils";
 import {
   House,
   Album,
@@ -13,9 +13,10 @@ import {
   Library,
   Contact,
   HelpCircle,
-  Armchair
-} from 'lucide-react';
-import type { LucideIcon } from 'lucide-react';
+  Armchair,
+  ImagePlay,
+} from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
 const iconMap: Record<string, LucideIcon> = {
   House,
@@ -27,7 +28,8 @@ const iconMap: Record<string, LucideIcon> = {
   Layers,
   Library,
   Contact,
-  Armchair
+  Armchair,
+  ImagePlay,
 };
 
 export default function HomeTile({
@@ -44,16 +46,16 @@ export default function HomeTile({
   return (
     <Link
       href={path}
-      target={path.startsWith('http') ? '_blank' : undefined}
-      rel={path.startsWith('http') ? 'noopener noreferrer' : undefined}
+      target={path.startsWith("http") ? "_blank" : undefined}
+      rel={path.startsWith("http") ? "noopener noreferrer" : undefined}
       className={cn(
-        'flex flex-col items-center justify-center gap-2 p-4 rounded-2xl',
-        'border border-white/30 dark:border-white/20',
-        'backdrop-blur-sm',
-        'bg-white/30 dark:bg-white/10',
-        'hover:shadow-lg transition hover:scale-105',
-        'text-black dark:text-white',
-        'aspect-square w-full'
+        "flex flex-col items-center justify-center gap-2 p-4 rounded-2xl",
+        "border border-white/30 dark:border-white/20",
+        "backdrop-blur-sm",
+        "bg-white/30 dark:bg-white/10",
+        "hover:shadow-lg transition hover:scale-105",
+        "text-black dark:text-white",
+        "aspect-square w-full"
       )}
     >
       <Icon className="w-7 h-7 sm:w-8 sm:h-8" />
