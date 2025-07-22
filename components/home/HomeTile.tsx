@@ -15,6 +15,7 @@ import {
   HelpCircle,
   Armchair,
   ImagePlay,
+  NotepadText,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
@@ -30,6 +31,7 @@ const iconMap: Record<string, LucideIcon> = {
   Contact,
   Armchair,
   ImagePlay,
+  NotepadText,
 };
 
 export default function HomeTile({
