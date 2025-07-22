@@ -13,6 +13,7 @@ import {
   Hexagon,
   SquareLibrary,
   ChartLine,
+  ArrowLeftToLine
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -110,7 +111,15 @@ export default function CodexPage() {
 
   return (
     <main className="max-w-4xl mx-auto p-6 mt-16 space-y-6">
-      <h1 className="text-3xl font-bold tracking-tight">The Primea Codex</h1>
+       <div className="flex items-center space-x-3">
+          <Link
+            href="/protected"
+            className="text-neutral-600 hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-white"
+          >
+            <ArrowLeftToLine className="w-5 h-5" />
+          </Link>
+          <h1 className="text-xl font-bold">The Primea Codex</h1>
+        </div>
       <p className="text-muted-foreground text-sm leading-relaxed">
         The Primea Codex is our organization manual— a curated collection of who we are,
         how we work, and what we believe in as a design practice. It is more than just

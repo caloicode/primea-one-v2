@@ -1,6 +1,7 @@
+import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { notFound } from "next/navigation";
-import { FolderClosed } from "lucide-react";
+import { FolderClosed, ArrowLeftToLine } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { EditProjectDialog } from "@/components/projects/EditProjectDialog";
 import { DeleteProjectButton } from "@/components/projects/DeleteProjectButton";
@@ -36,7 +37,17 @@ export default async function ProjectPage({
             <p className="text-xs text-muted-foreground">
               {project.project_code}
             </p>
-            <h3 className="text-2xl font-semibold">{project.project_name}</h3>
+
+            <div className="flex items-center space-x-3">
+              <Link
+                href="/protected/projects"
+                className="text-neutral-600 hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-white"
+              >
+                <ArrowLeftToLine className="w-5 h-5" />
+              </Link>
+
+              <h3 className="text-2xl font-semibold">{project.project_name}</h3>
+            </div>
           </div>
 
           <div className="flex gap-3 items-center">

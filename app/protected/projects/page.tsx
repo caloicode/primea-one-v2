@@ -1,7 +1,7 @@
 "use client";
-
+import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Plus } from "lucide-react";
+import { Plus, ArrowLeftToLine } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -32,9 +32,15 @@ export default function ProjectsPage() {
   return (
     <main className="px-4 pt-20 pb-10">
       <div className="w-full max-w-2xl mx-auto space-y-6">
-        <h1 className="text-xl font-semibold text-muted-foreground">
-          PROJECTS
-        </h1>
+        <div className="flex items-center space-x-3">
+          <Link
+            href="/protected"
+            className="text-neutral-600 hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-white"
+          >
+            <ArrowLeftToLine className="w-5 h-5" />
+          </Link>
+          <h1 className="text-xl font-bold">PROJECTS</h1>
+        </div>
 
         {loading ? (
           <p className="text-sm text-muted-foreground">Loading...</p>

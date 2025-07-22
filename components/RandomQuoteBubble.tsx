@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { Gem } from 'lucide-react';
+import { useEffect, useState } from "react";
+import { Gem } from "lucide-react";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { createClient } from '@/lib/supabase/client';
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { createClient } from "@/lib/supabase/client";
 
 type Quote = {
   quote: string;
@@ -21,11 +21,10 @@ export default function RandomQuoteBubble() {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  // ✅ Fetch once on mount
   useEffect(() => {
     const fetchRandomQuote = async () => {
       const supabase = createClient();
-      const { data, error } = await supabase.from('quotes').select('*');
+      const { data, error } = await supabase.from("quotes").select("*");
       if (!error && data && data.length > 0) {
         const random = data[Math.floor(Math.random() * data.length)];
         setQuote(random);
@@ -35,6 +34,9 @@ export default function RandomQuoteBubble() {
 
     fetchRandomQuote();
   }, []);
+
+  // ✅ Prevent rendering until loading is done
+  if (loading) return null;
 
   return (
     <>
@@ -54,11 +56,11 @@ export default function RandomQuoteBubble() {
             <DialogTitle>Today's Learning Gem</DialogTitle>
           </DialogHeader>
 
-          {loading ? (
-            <p className="text-sm">Loading quote...</p>
-          ) : quote ? (
+          {quote ? (
             <>
-              <p className="text-base italic leading-relaxed">“{quote.quote}”</p>
+              <p className="text-base italic leading-relaxed">
+                “{quote.quote}”
+              </p>
               <p className="text-sm text-muted-foreground">— {quote.author}</p>
             </>
           ) : (
