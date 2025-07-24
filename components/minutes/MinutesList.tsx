@@ -30,17 +30,23 @@ interface User {
 }
 
 export default function MinutesList() {
-  const [minutes, setMinutes] = useState<(Minute & { user: User | null })[]>([]);
+  const [minutes, setMinutes] = useState<(Minute & { user: User | null })[]>(
+    []
+  );
   const [allUsers, setAllUsers] = useState<User[]>([]);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editMinute, setEditMinute] = useState<Minute | null>(null);
   const [deleteId, setDeleteId] = useState<string | null>(null);
+  const [currentUserId, setCurrentUserId] = useState<string | null>(null);
 
   const supabase = createClient();
 
   const fetchAll = async () => {
     const [{ data: minutesData }, { data: usersData }] = await Promise.all([
-      supabase.from("minutes").select("*").order("created_at", { ascending: false }),
+      supabase
+        .from("minutes")
+        .select("*")
+        .order("created_at", { ascending: false }),
       supabase.rpc("get_all_users"),
     ]);
 
@@ -56,7 +62,15 @@ export default function MinutesList() {
   };
 
   useEffect(() => {
-    fetchAll();
+    const fetchUserAndData = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      setCurrentUserId(user?.id || null);
+      fetchAll();
+    };
+
+    fetchUserAndData();
   }, []);
 
   const handleDelete = async () => {
@@ -89,24 +103,26 @@ export default function MinutesList() {
                   </p>
                 </div>
               </div>
-              <DropdownMenu>
-                <DropdownMenuTrigger>
-                  <EllipsisVertical className="cursor-pointer" />
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  <DropdownMenuItem
-                    onClick={() => {
-                      setEditMinute(minute);
-                      setDialogOpen(true);
-                    }}
-                  >
-                    Edit
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => setDeleteId(minute.id)}>
-                    Delete
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+              {minute.user_id === currentUserId && (
+                <DropdownMenu>
+                  <DropdownMenuTrigger>
+                    <EllipsisVertical className="cursor-pointer" />
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    <DropdownMenuItem
+                      onClick={() => {
+                        setEditMinute(minute);
+                        setDialogOpen(true);
+                      }}
+                    >
+                      Edit
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setDeleteId(minute.id)}>
+                      Delete
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              )}
             </div>
             <h3 className="text-lg font-bold mb-1">{minute.title}</h3>
             <p className="text-sm text-muted-foreground whitespace-pre-line">

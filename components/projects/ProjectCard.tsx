@@ -1,22 +1,27 @@
-"use client";
+'use client';
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Folder } from "lucide-react";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Project } from "@/types/project";
 
 export default function ProjectCard({ project }: { project: Project }) {
+  const router = useRouter();
   const percent = Math.round((project.pct ?? 0) * 100);
 
   const openDrive = (e: React.MouseEvent) => {
-    e.stopPropagation();
+    e.stopPropagation(); // ✅ Prevent bubble
     window.open(project.drive_link, "_blank");
   };
 
+  const openProject = () => {
+    router.push(`/protected/projects/${project.project_code}`);
+  };
+
   return (
-    <Link
-      href={`/protected/projects/${project.project_code}`}
-      className="block"
+    <div
+      onClick={openProject}
+      className="block cursor-pointer"
     >
       <Card className="w-full p-3 sm:p-4 hover:shadow-md transition">
         <CardContent className="flex flex-col gap-2 p-0">
@@ -45,6 +50,6 @@ export default function ProjectCard({ project }: { project: Project }) {
           </div>
         </CardContent>
       </Card>
-    </Link>
+    </div>
   );
 }
