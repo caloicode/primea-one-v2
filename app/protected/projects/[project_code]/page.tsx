@@ -6,6 +6,8 @@ import { Progress } from "@/components/ui/progress";
 import { EditProjectDialog } from "@/components/projects/EditProjectDialog";
 import { DeleteProjectButton } from "@/components/projects/DeleteProjectButton";
 import ProjectTodos from "@/components/projects/ProjectTodos";
+import Image from "next/image";
+import { Badge } from "@/components/ui/badge";
 
 export default async function ProjectPage({
   params,
@@ -13,7 +15,6 @@ export default async function ProjectPage({
   params: Promise<{ project_code: string }>;
 }) {
   const { project_code } = await params;
-
   const supabase = await createClient();
 
   const { data: project, error } = await supabase
@@ -27,6 +28,17 @@ export default async function ProjectPage({
   const pct = Number(
     (project.pct <= 1 ? project.pct * 100 : project.pct).toFixed(2)
   );
+
+  // 🧠 Fetch all users to match assigned_to uuids
+  let assignedUsers = [];
+  if (project.assigned_to?.length > 0) {
+    const { data: usersData, error: usersError } = await supabase.rpc("get_all_users");
+    if (!usersError && usersData) {
+      assignedUsers = usersData.filter((user: any) =>
+        project.assigned_to.includes(user.id)
+      );
+    }
+  }
 
   return (
     <main className="px-4 pt-20 pb-10">
@@ -45,7 +57,6 @@ export default async function ProjectPage({
               >
                 <ArrowLeftToLine className="w-5 h-5" />
               </Link>
-
               <h3 className="text-2xl font-semibold">{project.project_name}</h3>
             </div>
           </div>
@@ -96,7 +107,34 @@ export default async function ProjectPage({
           <p>
             <strong>Notes:</strong> {project.notes}
           </p>
+
+          {/* 👥 Assigned Users */}
+          {assignedUsers.length > 0 && (
+            <div className="pt-2">
+              <strong>Assigned To:</strong>
+              <div className="flex flex-wrap gap-2 mt-1">
+                {assignedUsers.map((user: any) => (
+                  <Badge
+                    key={user.id}
+                    className="flex items-center gap-2 px-2 py-1 rounded-full"
+                  >
+                    {user.avatar_url && (
+                      <Image
+                        src={user.avatar_url}
+                        alt={user.full_name || ""}
+                        width={16}
+                        height={16}
+                        className="rounded-full"
+                      />
+                    )}
+                    <span>{user.full_name || "Unknown"}</span>
+                  </Badge>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
+
         <ProjectTodos projectCode={project.project_code} />
       </div>
     </main>
