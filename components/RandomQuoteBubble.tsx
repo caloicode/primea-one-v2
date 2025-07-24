@@ -44,7 +44,7 @@ export default function RandomQuoteBubble() {
         onClick={() => setOpen(true)}
         variant="ghost"
         size="icon"
-        className="fixed bottom-6 right-6 z-50 bg-muted hover:bg-primary/80 text-primary hover:text-white shadow-md"
+        className="fixed bottom-6 right-6 z-50 backdrop-blur-sm bg-white/40 dark:bg-white/5 border border-white/20 hover:bg-white/20 dark:hover:bg-white/10 shadow-md"
         aria-label="Inspire me"
       >
         <Gem className="w-5 h-5" />
